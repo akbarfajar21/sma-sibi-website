@@ -17,7 +17,6 @@ import Alumni from "./pages/Alumni";
 
 function App() {
   const [maintenance, setMaintenance] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchMaintenanceStatus = async () => {
@@ -32,19 +31,10 @@ function App() {
       }
 
       setMaintenance(data?.value || false);
-      setLoading(false);
     };
 
     fetchMaintenanceStatus();
   }, []);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-500 text-lg">Memuat website...</p>
-      </div>
-    );
-  }
 
   return (
     <Router>
