@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import supabase from "../utils/SupaClient";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const Alumni = () => {
   const [alumni, setAlumni] = useState([]);
@@ -8,6 +9,8 @@ const Alumni = () => {
   const [selectedAngkatan, setSelectedAngkatan] = useState(null);
   const [angkatanList, setAngkatanList] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [loadingAngkatan, setLoadingAngkatan] = useState(true);
+  const [loadingAlumni, setLoadingAlumni] = useState(false);
 
   useEffect(() => {
     if (selectedAngkatan !== null) {
@@ -40,6 +43,7 @@ const Alumni = () => {
   };
 
   const fetchAlumni = async () => {
+    setLoadingAlumni(true);
     let query = supabase.from("alumni").select("*");
 
     if (selectedAngkatan === "null") {
@@ -54,9 +58,11 @@ const Alumni = () => {
     } else {
       console.error(error);
     }
+    setLoadingAlumni(false);
   };
 
   const fetchAngkatan = async () => {
+    setLoadingAngkatan(true);
     const { data, error } = await supabase.from("alumni").select("angkatan");
     if (!error) {
       const unique = [
@@ -69,27 +75,69 @@ const Alumni = () => {
     } else {
       console.error(error);
     }
+    setLoadingAngkatan(false);
   };
 
+  // Loading Component for Cards
+  const LoadingCard = () => (
+    <div className="bg-white rounded-lg border border-gray-100 shadow-sm overflow-hidden animate-pulse">
+      <div className="p-5 space-y-4">
+        <div className="text-center space-y-3">
+          <div className="w-16 h-16 bg-gray-200 rounded-full mx-auto"></div>
+          <div className="h-6 bg-gray-200 rounded mx-auto w-32"></div>
+        </div>
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="h-4 bg-gray-200 rounded w-16"></div>
+            <div className="h-4 bg-gray-200 rounded w-24"></div>
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="h-4 bg-gray-200 rounded w-12"></div>
+            <div className="h-6 bg-gray-200 rounded-full w-16"></div>
+          </div>
+        </div>
+        <div className="pt-4 border-t border-gray-100">
+          <div className="text-center">
+            <div className="h-8 bg-gray-200 rounded mx-auto w-32"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Loading Component for Tabs
+  const LoadingTabs = () => (
+    <div className="mb-8">
+      <div className="flex flex-wrap justify-center gap-2 p-2 bg-white rounded-lg border border-gray-100 shadow-sm max-w-fit mx-auto">
+        {[1, 2, 3, 4].map((i) => (
+          <div
+            key={i}
+            className="px-6 py-3 bg-gray-200 rounded-lg animate-pulse w-24 h-12"
+          ></div>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50 pt-24 pb-16">
+    <div className="min-h-screen bg-gray-50 pt-24 pb-16">
       <Navbar />
 
       {/* Hero Section */}
-      <div className="max-w-6xl mx-auto px-6 mb- mt-10">
+      <div className="max-w-6xl mx-auto px-4 mb-8 mt-8">
         <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl font-light text-gray-900 tracking-tight">
-            Alumni
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
+            Jejak Alumni
           </h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 mx-auto rounded-full"></div>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">
-            Menelusuri jejak para alumni SMAIT Baitul 'Ilmi yang telah berkarya
-            di berbagai bidang
+          <div className="w-24 h-1 bg-green-600 mx-auto rounded-full"></div>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Melihat perjalanan alumni SMAIT Baitul 'Ilmi yang telah menorehkan
+            prestasi di berbagai bidang
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 mt-5">
+      <div className="max-w-7xl mx-auto px-4 pb-12">
         {/* Search Bar */}
         <div className="mb-8 max-w-md mx-auto">
           <div className="relative">
@@ -110,10 +158,11 @@ const Alumni = () => {
             </div>
             <input
               type="text"
-              placeholder="Cari alumni berdasarkan nama"
+              placeholder="Cari alumni berdasarkan nama, jurusan, atau universitas"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-white/80 backdrop-blur-sm border border-white/20 rounded-2xl shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all duration-300 text-gray-700 placeholder-gray-400"
+              className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 text-gray-700 placeholder-gray-400"
+              disabled={loadingAngkatan}
             />
             {searchQuery && (
               <button
@@ -139,31 +188,64 @@ const Alumni = () => {
         </div>
 
         {/* Tabs */}
-        <div className="mb-12">
-          <div className="flex flex-wrap justify-center gap-2 p-2 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/20 shadow-lg max-w-fit mx-auto">
-            {angkatanList.map((angkatan) => (
-              <button
-                key={angkatan}
-                onClick={() => setSelectedAngkatan(angkatan)}
-                className={`px-6 py-3 text-sm font-medium rounded-xl transition-all duration-300 relative overflow-hidden
-                  ${
-                    selectedAngkatan === angkatan
-                      ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg transform scale-105"
-                      : "text-gray-600 hover:text-gray-900 hover:bg-white/80"
-                  }
-                `}
-              >
-                <span className="relative z-10">Angkatan {angkatan}</span>
-                {selectedAngkatan === angkatan && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-600 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
-                )}
-              </button>
-            ))}
+        {loadingAngkatan ? (
+          <LoadingTabs />
+        ) : (
+          <div className="mb-8">
+            <div className="flex flex-wrap justify-center gap-2 p-2 bg-white rounded-lg border border-gray-100 shadow-sm max-w-fit mx-auto">
+              {angkatanList.map((angkatan) => (
+                <button
+                  key={angkatan}
+                  onClick={() => setSelectedAngkatan(angkatan)}
+                  disabled={loadingAlumni}
+                  className={`px-5 py-2 text-sm font-medium rounded-lg transition-all duration-200
+                    ${
+                      selectedAngkatan === angkatan
+                        ? "bg-green-600 text-white shadow-md"
+                        : "text-gray-600 hover:text-gray-800 hover:bg-gray-50"
+                    }
+                  `}
+                >
+                  Angkatan {angkatan}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* Loading Indicator for Alumni */}
+        {loadingAlumni && (
+          <div className="mb-8 text-center">
+            <div className="inline-flex items-center px-6 py-3 bg-white rounded-lg border border-gray-100 shadow-sm">
+              <svg
+                className="animate-spin -ml-1 mr-3 h-5 w-5 text-green-600"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              <span className="text-gray-700 font-medium">
+                Memuat data alumni angkatan {selectedAngkatan}...
+              </span>
+            </div>
+          </div>
+        )}
 
         {/* Search Results Info */}
-        {searchQuery && (
+        {searchQuery && !loadingAlumni && (
           <div className="mb-6 text-center">
             <p className="text-sm text-gray-600">
               Menampilkan {filteredAlumni.length} hasil untuk "{searchQuery}"
@@ -173,74 +255,78 @@ const Alumni = () => {
         )}
 
         {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {filteredAlumni.map((item, index) => (
-            <div
-              key={index}
-              className="group bg-white/80 backdrop-blur-sm rounded-2xl border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden hover:scale-[1.02] hover:-translate-y-1"
-            >
-              <div className="p-6 space-y-4">
-                {/* Header dengan gradient */}
-                <div className="text-center space-y-3">
-                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full mx-auto flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                    {item.nama
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")
-                      .substring(0, 2)}
-                  </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {loadingAlumni
+            ? // Show loading cards
+              Array.from({ length: 8 }, (_, i) => <LoadingCard key={i} />)
+            : // Show actual alumni cards
+              filteredAlumni.map((item, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
+                >
+                  <div className="p-5 space-y-4">
+                    {/* Header */}
+                    <div className="text-center space-y-3">
+                      <div className="w-16 h-16 bg-green-50 rounded-full mx-auto flex items-center justify-center text-green-800 font-bold text-xl border-2 border-green-100">
+                        {item.nama
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")
+                          .substring(0, 2)}
+                      </div>
 
-                  <h3 className="text-xl font-semibold text-gray-800 group-hover:text-emerald-600 transition-colors duration-300">
-                    {item.nama}
-                  </h3>
-                </div>
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {item.nama}
+                      </h3>
+                    </div>
 
-                {/* Content */}
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-500 font-medium">Jurusan</span>
-                    <span className="text-gray-800 font-semibold text-right flex-1 ml-2">
-                      {item.jurusan}
-                    </span>
-                  </div>
+                    {/* Content */}
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-gray-500">Jurusan</span>
+                        <span className="text-gray-800 font-medium text-right flex-1 ml-2">
+                          {item.jurusan}
+                        </span>
+                      </div>
 
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-500 font-medium">Jalur</span>
-                    <span className="px-3 py-1 bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-700 rounded-full text-xs font-semibold">
-                      {item.jalur}
-                    </span>
-                  </div>
-                </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-gray-500">Jalur</span>
+                        <span className="px-2 py-1 bg-green-50 text-green-800 rounded text-xs font-medium">
+                          {item.jalur}
+                        </span>
+                      </div>
+                    </div>
 
-                {/* Footer */}
-                <div className="pt-4 border-t border-gray-100">
-                  <div className="text-center">
-                    <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl text-sm font-medium shadow-lg">
-                      <svg
-                        className="w-4 h-4 mr-2"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
-                          clipRule="evenodd"
-                        />
-                        <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
-                      </svg>
-                      {item.universitas}
+                    {/* Footer */}
+                    <div className="pt-4 border-t border-gray-100">
+                      <div className="text-center">
+                        <div className="inline-flex items-center px-3 py-1 bg-green-600 text-white rounded-lg text-sm font-medium">
+                          <svg
+                            className="w-4 h-4 mr-2"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
+                              clipRule="evenodd"
+                            />
+                            <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
+                          </svg>
+                          {item.universitas}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              ))}
         </div>
 
         {/* Empty State */}
-        {filteredAlumni.length === 0 && (
+        {filteredAlumni.length === 0 && !loadingAlumni && (
           <div className="text-center py-16">
-            <div className="w-24 h-24 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full mx-auto flex items-center justify-center text-white mb-6">
+            <div className="w-24 h-24 bg-green-50 rounded-full mx-auto flex items-center justify-center text-green-800 mb-6 border-2 border-green-100">
               {searchQuery ? (
                 <svg
                   className="w-12 h-12"
@@ -271,27 +357,28 @@ const Alumni = () => {
                 </svg>
               )}
             </div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+            <h3 className="text-xl font-bold text-gray-900 mb-2">
               {searchQuery
-                ? "Tidak ada hasil yang ditemukan"
+                ? "Tidak ditemukan hasil pencarian"
                 : "Belum ada data alumni"}
             </h3>
             <p className="text-gray-600">
               {searchQuery
-                ? `Coba ubah kata kunci pencarian atau pilih angkatan lain`
-                : "Data alumni untuk angkatan ini akan segera tersedia"}
+                ? `Coba gunakan kata kunci yang berbeda atau pilih angkatan lain`
+                : "Data alumni untuk angkatan ini akan segera kami perbarui"}
             </p>
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="mt-4 px-6 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-medium hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 shadow-lg"
+                className="mt-4 px-5 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors duration-200 shadow-sm"
               >
-                Hapus Pencarian
+                Reset Pencarian
               </button>
             )}
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 };

@@ -5,7 +5,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SyaratDanAlur from "../components/PPDB/SyaratDanAlur";
 import BiayaPendidikan from "../components/PPDB/BiayaPendidikan";
-import CtaDaftar from "../components/CtaDaftar";
 
 const FormPPDB = () => {
   return (
@@ -15,7 +14,6 @@ const FormPPDB = () => {
       <WaktuPendaftaran />
       <SyaratDanAlur />
       <BiayaPendidikan />
-      <CtaDaftar />
       <Footer />
     </div>
   );

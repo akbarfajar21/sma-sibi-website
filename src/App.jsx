@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Beranda from "./pages/Beranda";
 import NotFound from "./pages/NotFound";
 import TentangSmabi from "./pages/TentangSmabi";
@@ -14,6 +19,42 @@ import Contact from "./pages/Contact";
 import Maintenance from "./pages/Maintenance";
 import supabase from "./utils/SupaClient";
 import Alumni from "./pages/Alumni";
+import PageLoader from "./components/PageLoader";
+
+function AppRoutes() {
+  const location = useLocation();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // Aktifkan loading setiap ganti halaman
+    setLoading(true);
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 700); // waktu tampil spinner
+
+    return () => clearTimeout(timeout);
+  }, [location.pathname]);
+
+  return (
+    <>
+      <ScrollToTop />
+      <FloatingWhatsapp />
+      {loading && <PageLoader />}
+      <Routes>
+        <Route path="/" element={<Beranda />} />
+        <Route path="/tentang-smabi" element={<TentangSmabi />} />
+        <Route path="/sejarah-smabi" element={<SejarahSmabi />} />
+        <Route path="/berita-smabi" element={<BeritaSmabi />} />
+        <Route path="/berita-detail/:id" element={<BeritaDetail />} />
+        <Route path="/form" element={<FormPPDB />} />
+        <Route path="/kurikulum" element={<Kurikulum />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/alumni" element={<Alumni />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
+  );
+}
 
 function App() {
   const [maintenance, setMaintenance] = useState(false);
@@ -36,28 +77,7 @@ function App() {
     fetchMaintenanceStatus();
   }, []);
 
-  return (
-    <Router>
-      <ScrollToTop />
-      <FloatingWhatsapp />
-      {maintenance ? (
-        <Maintenance />
-      ) : (
-        <Routes>
-          <Route path="/" element={<Beranda />} />
-          <Route path="/tentang-smabi" element={<TentangSmabi />} />
-          <Route path="/sejarah-smabi" element={<SejarahSmabi />} />
-          <Route path="/berita-smabi" element={<BeritaSmabi />} />
-          <Route path="/berita-detail/:id" element={<BeritaDetail />} />
-          <Route path="/form" element={<FormPPDB />} />
-          <Route path="/kurikulum" element={<Kurikulum />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/alumni" element={<Alumni />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      )}
-    </Router>
-  );
+  return <Router>{maintenance ? <Maintenance /> : <AppRoutes />}</Router>;
 }
 
 export default App;

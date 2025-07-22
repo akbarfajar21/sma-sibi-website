@@ -23,7 +23,7 @@ const Footer = () => {
           <div>
             <p className="font-semibold mb-1">Office:</p>
             <p>Email: smabi.tamara@gmail.com</p>
-            <p>Website: smabi.sch.id</p>
+            <p>Website: smaitbaitulilmi.com</p>
           </div>
           <div className="flex gap-4 mt-2">
             <a
@@ -53,13 +53,13 @@ const Footer = () => {
         {/* Tengah - Link Sekolah */}
         <div className="flex flex-col gap-2">
           <h3 className="font-bold text-lg mb-2">Sekolah</h3>
-          <a href="#" className="hover:underline">
+          <a href="/tentang-smabi" className="hover:underline">
             Tentang SMABI
           </a>
-          <a href="#" className="hover:underline">
+          <a href="/sejarah-smabi" className="hover:underline">
             Sejarah SMABI
           </a>
-          <a href="#" className="hover:underline">
+          <a href="/berita-smabi" className="hover:underline">
             Berita SMABI
           </a>
         </div>
@@ -67,11 +67,11 @@ const Footer = () => {
         {/* Kanan - Link Pendidikan */}
         <div className="flex flex-col gap-2">
           <h3 className="font-bold text-lg mb-2">Pendidikan</h3>
-          <a href="#" className="hover:underline">
-            Berita SMABI
+          <a href="/kurikulum" className="hover:underline">
+            Kurikulum
           </a>
-          <a href="#" className="hover:underline">
-            Kurikulum SMABI
+          <a href="/alumni" className="hover:underline">
+            Alumni SMABI
           </a>
         </div>
       </div>

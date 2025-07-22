@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import supabase from "../utils/SupaClient";
 import BeritaCard from "../components/BeritaSmabi/BeritaCard";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const BeritaSmabi = () => {
   const [berita, setBerita] = useState([]);
+  const [loading, setLoading] = useState(true); // Tambahkan state loading
 
   useEffect(() => {
     const fetchBerita = async () => {
+      setLoading(true); // Set loading true saat mulai fetch
       const { data, error } = await supabase
         .from("berita")
         .select("id, judul, teks, image_url, created_by, created_at")
@@ -18,6 +21,8 @@ const BeritaSmabi = () => {
       } else {
         setBerita(data);
       }
+
+      setLoading(false); // Set loading false setelah selesai fetch
     };
 
     fetchBerita();
@@ -40,7 +45,11 @@ const BeritaSmabi = () => {
 
       <section className="bg-white px-4 py-16 md:px-32">
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {berita.length > 0 ? (
+          {loading ? (
+            <p className="col-span-full text-center text-gray-400 text-sm animate-pulse">
+              Memuat berita...
+            </p>
+          ) : berita.length > 0 ? (
             berita.map((item) => (
               <BeritaCard
                 key={item.id}
@@ -64,6 +73,7 @@ const BeritaSmabi = () => {
           )}
         </div>
       </section>
+      <Footer />
     </>
   );
 };

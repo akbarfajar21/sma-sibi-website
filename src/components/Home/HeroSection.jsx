@@ -292,12 +292,18 @@ const HeroSection = () => {
             pemahaman para salafushalih
           </p>
           <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-            <button className="bg-white text-green-700 px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition">
-              Our Activity
-            </button>
-            <button className="bg-white text-green-700 px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition">
-              Academic
-            </button>
+            <Link
+              to="/tentang-smabi"
+              className="bg-white text-green-700 px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition"
+            >
+              Tentang
+            </Link>
+            <Link
+              to="/kurikulum"
+              className="bg-white text-green-700 px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition"
+            >
+              Kurikulum
+            </Link>
           </div>
         </div>
       </section>
