@@ -55,10 +55,10 @@ const BeritaDetail = () => {
       <div className="max-w-5xl mx-auto px-6 md:px-8 py-12 animate-fade-in mt-20">
         {/* Tombol Kembali */}
         <button
-          onClick={() => navigate("/berita-smabi")}
+          onClick={() => navigate(-1)}
           className="text-sm text-green-700 font-medium mb-6 hover:underline flex items-center gap-2"
         >
-          <span className="text-xl">←</span> Kembali ke Berita
+          <span className="text-xl">←</span> Kembali
         </button>
 
         {/* Header Info */}

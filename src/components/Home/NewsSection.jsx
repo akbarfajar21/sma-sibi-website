@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // <-- Tambah ini
 import AOS from "aos";
 import "aos/dist/aos.css";
 import supabase from "../../utils/SupaClient";
@@ -6,6 +7,7 @@ import supabase from "../../utils/SupaClient";
 const NewsSection = () => {
   const [beritaList, setBeritaList] = useState([]);
   const [showAll, setShowAll] = useState(false);
+  const navigate = useNavigate(); // <-- Tambah ini
 
   useEffect(() => {
     AOS.init({ duration: 800, once: true });
@@ -37,29 +39,28 @@ const NewsSection = () => {
           Berita <span className="text-green-700">Terbaru</span>
         </h2>
 
-        {/* Kondisi jika tidak ada berita */}
         {beritaList.length === 0 ? (
           <div
-            className=" text-black p-4 rounded-md text-center"
+            className="text-black p-4 rounded-md text-center"
             data-aos="fade-up"
           >
             Belum ada berita yang tersedia saat ini.
           </div>
         ) : (
           <>
-            {/* Grid berita */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
               {visibleNews.map((berita, idx) => (
                 <div
                   key={berita.id}
-                  className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300"
+                  onClick={() => navigate(`/berita-detail/${berita.id}`)} // <-- Navigasi ke detail
+                  className="cursor-pointer bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300"
                   data-aos="fade-up"
                   data-aos-delay={idx * 100}
                 >
                   <img
                     src={berita.image_url}
                     alt={berita.judul}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-96 object-cover"
                   />
                   <div className="p-4 text-left">
                     <h3 className="font-semibold text-base text-gray-800 mb-2">
@@ -78,7 +79,6 @@ const NewsSection = () => {
               ))}
             </div>
 
-            {/* Tombol toggle */}
             <div
               className="text-center mt-12"
               data-aos="fade-up"

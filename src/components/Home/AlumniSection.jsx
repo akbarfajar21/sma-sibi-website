@@ -108,10 +108,6 @@ const AlumniSection = () => {
                 ))}
               </div>
             </div>
-
-            {/* Gradient overlay untuk efek fade di kiri dan kanan */}
-            <div className="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-yellow-50 to-transparent pointer-events-none z-10"></div>
-            <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-yellow-50 to-transparent pointer-events-none z-10"></div>
           </div>
         ) : (
           <div className="text-center py-12">
