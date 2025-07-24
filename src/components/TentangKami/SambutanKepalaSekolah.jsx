@@ -1,4 +1,5 @@
 import React from "react";
+import { User } from "lucide-react";
 
 const SambutanKepalaSekolah = () => {
   return (
@@ -8,18 +9,16 @@ const SambutanKepalaSekolah = () => {
           Sambutan <span className="text-green-700">Kepala Sekolah</span>
         </h2>
         <p className="text-sm md:text-base text-gray-600 mt-2">
-          SMAIT BAITUL ‘ILMI
+          SMAIT BAITUL 'ILMI
         </p>
       </div>
 
       <div className="bg-white shadow-md border rounded-xl p-6 md:p-10 flex flex-col md:flex-row gap-10 items-center">
-        {/* Foto dan Nama */}
+        {/* Avatar dan Nama */}
         <div className="flex flex-col items-center text-center">
-          <img
-            src="/foto-kepala-sekolah.jpg"
-            alt="Kepala Sekolah"
-            className="w-40 h-48 object-cover rounded-lg shadow-sm"
-          />
+          <div className="w-40 h-48 bg-green-100 rounded-lg shadow-sm flex items-center justify-center">
+            <User className="w-20 h-20 text-green-600" />
+          </div>
           <span className="mt-4 bg-green-600 text-white px-4 py-1 rounded-full text-sm font-medium">
             Ust. Luzman Rifqi, S.Kom.I
           </span>
@@ -29,7 +28,7 @@ const SambutanKepalaSekolah = () => {
         <div className="text-sm md:text-base text-gray-800 leading-relaxed max-w-2xl">
           <p>
             Memiliki anak yang sholih/sholihah, cerdas, dan berkarakter adalah
-            harapan setiap keluarga muslim. Di SMAIT Baitul ‘Ilmi, kami
+            harapan setiap keluarga muslim. Di SMAIT Baitul 'Ilmi, kami
             berkomitmen untuk mewujudkan hal tersebut dengan pendidikan yang
             berlandaskan nilai-nilai Islam.
           </p>
@@ -48,8 +47,8 @@ const SambutanKepalaSekolah = () => {
               أَوَّلُهَا
             </p>
             <p className="mt-1 text-gray-700 italic">
-              “Tidaklah akan baik generasi akhir umat ini kecuali dengan apa
-              yang telah membuat baik generasi awalnya.”
+              "Tidaklah akan baik generasi akhir umat ini kecuali dengan apa
+              yang telah membuat baik generasi awalnya."
             </p>
           </div>
         </div>
