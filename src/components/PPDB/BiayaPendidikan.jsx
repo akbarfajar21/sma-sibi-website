@@ -1,5 +1,16 @@
-import React from "react";
+// File: src/pages/BiayaPendidikan.jsx
+import React, { useEffect, useState } from "react";
 import { FaCheckCircle, FaDownload } from "react-icons/fa";
+import supabase from "../../utils/SupaClient";
+
+// Fungsi untuk format rupiah
+const formatCurrency = (amount) => {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+  }).format(Number(amount));
+};
 
 // Komponen Card untuk setiap jenis biaya
 const BiayaCard = ({ title, price, description, items = [] }) => (
@@ -11,7 +22,7 @@ const BiayaCard = ({ title, price, description, items = [] }) => (
           {title}
         </h3>
         <div className="text-2xl font-extrabold text-gray-900 tracking-tight">
-          {price}
+          {formatCurrency(price)}
         </div>
       </div>
 
@@ -37,54 +48,30 @@ const BiayaCard = ({ title, price, description, items = [] }) => (
 );
 
 const BiayaPendidikan = () => {
-  // Data biaya pendidikan
-  const biayaData = [
-    {
-      title: "Biaya Pendaftaran",
-      price: "Rp 250.000",
-      description:
-        "Dibayarkan di awal sebelum mengisi formulir pendaftaran. Mencakup seluruh proses seleksi:",
-      items: [
-        "Biaya ujian seleksi masuk",
-        "Tes tertulis dan kompetensi",
-        "Interview anak dan orangtua",
-      ],
-    },
-    {
-      title: "Biaya Masuk",
-      price: "Rp 6.585.000",
-      description:
-        "Investasi awal pendidikan yang mencakup kebutuhan siswa selama tahun pertama:",
-      items: [
-        "Seragam sekolah lengkap (3 stel)",
-        "Buku paket pembelajaran",
-        "Biaya operasional tahun pertama",
-        "Pengembangan kegiatan pendidikan",
-        "SPP bulan Juli (sudah termasuk)",
-      ],
-    },
-    {
-      title: "SPP Bulanan",
-      price: "Rp 370.000",
-      description:
-        "Iuran bulanan yang dibayarkan setiap tanggal 10. Sudah mencakup seluruh kebutuhan pembelajaran bulanan.",
-      items: [],
-    },
-    {
-      title: "Biaya Daftar Ulang",
-      price: "Rp 3.435.000",
-      description:
-        "Dibayarkan saat naik ke kelas 2 dan 3. Investasi berkelanjutan untuk:",
-      items: [
-        "Buku materi pembelajaran terbaru",
-        "Program kegiatan pendidikan tahunan",
-        "Pengembangan fasilitas pembelajaran",
-      ],
-    },
-  ];
+  const [biayaData, setBiayaData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Ambil data dari Supabase
+  const fetchBiaya = async () => {
+    const { data, error } = await supabase
+      .from("biaya_pendidikan")
+      .select("*")
+      .order("created_at", { ascending: true });
+
+    if (error) {
+      console.error("Gagal mengambil data:", error.message);
+    } else {
+      setBiayaData(data);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchBiaya();
+  }, []);
 
   return (
-    <section className=" from-slate-50 via-green-50 to-emerald-50 py-20">
+    <section className="from-slate-50 via-green-50 to-emerald-50 py-20">
       <div className="max-w-7xl mx-auto px-6">
         {/* Container Utama */}
         <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-8 md:p-12">
@@ -102,11 +89,21 @@ const BiayaPendidikan = () => {
           </div>
 
           {/* Grid Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mb-16">
-            {biayaData.map((biaya, index) => (
-              <BiayaCard key={index} {...biaya} />
-            ))}
-          </div>
+          {loading ? (
+            <div className="text-center text-gray-500">Memuat data...</div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mb-16">
+              {biayaData.map((biaya) => (
+                <BiayaCard
+                  key={biaya.id}
+                  title={biaya.title}
+                  price={biaya.price}
+                  description={biaya.description}
+                  items={biaya.items}
+                />
+              ))}
+            </div>
+          )}
 
           {/* Call to Action */}
           <div className="text-center">
