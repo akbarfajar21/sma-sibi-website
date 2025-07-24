@@ -8,7 +8,7 @@ const BeritaCard = ({ berita }) => {
         <img
           src={berita.image}
           alt={berita.title}
-          className="w-full h-48 object-cover"
+          className="w-full h-96 object-cover"
         />
         <div className="p-5">
           <p className="text-sm text-gray-500 mb-2">{berita.date}</p>
