@@ -25,7 +25,11 @@ const AlumniSection = () => {
     fetchUniversitas();
   }, []);
 
+  // Duplikasi data untuk infinite scroll yang benar-benar seamless
   const duplicatedUniversitas = [
+    ...universitas,
+    ...universitas,
+    ...universitas,
     ...universitas,
     ...universitas,
     ...universitas,
@@ -76,8 +80,9 @@ const AlumniSection = () => {
                 className="flex animate-scroll space-x-8"
                 style={{
                   animation: `scroll ${
-                    universitas.length * 1.5
+                    universitas.length * 2.5
                   }s linear infinite`,
+                  width: `${duplicatedUniversitas.length * 120}px`,
                 }}
               >
                 {duplicatedUniversitas.map((item, index) => (
@@ -126,7 +131,7 @@ const AlumniSection = () => {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-33.333%);
+            transform: translateX(-50%);
           }
         }
 
