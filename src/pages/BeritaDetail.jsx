@@ -94,8 +94,13 @@ const BeritaDetail = () => {
         <div className="h-1 w-24 bg-green-600 rounded-full mb-8"></div>
 
         {/* Isi Berita */}
-        <div className="prose max-w-none text-gray-700 text-justify">
-          <p>{berita.teks}</p>
+        <div className="prose max-w-none text-gray-700 text-justify space-y-4">
+          {berita.teks
+            .split("\n")
+            .filter((paragraf) => paragraf.trim() !== "")
+            .map((paragraf, index) => (
+              <p key={index}>{paragraf}</p>
+            ))}
         </div>
       </div>
 
