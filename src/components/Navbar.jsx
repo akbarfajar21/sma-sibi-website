@@ -98,6 +98,14 @@ const Navbar = () => {
                     Berita SMABI
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="/karya-tulis"
+                    className="block px-4 py-2 hover:bg-green-700 hover:text-white transition-colors rounded-md"
+                  >
+                    Karya Tulis SMABI
+                  </Link>
+                </li>
               </ul>
             )}
           </li>
@@ -213,6 +221,11 @@ const Navbar = () => {
                 <li>
                   <Link to="/berita-smabi" className="block py-1">
                     Berita SMABI
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/karya-tulis" className="block py-1">
+                    Karya Tulis SMABI
                   </Link>
                 </li>
               </ul>

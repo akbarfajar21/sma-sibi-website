@@ -19,7 +19,9 @@ import Contact from "./pages/Contact";
 import Maintenance from "./pages/Maintenance";
 import supabase from "./utils/SupaClient";
 import Alumni from "./pages/Alumni";
+import KaryaTulis from "./pages/KaryaTulis";
 import PageLoader from "./components/PageLoader";
+import KaryaTulisDetail from "./pages/KaryaTulisDetail";
 
 function AppRoutes() {
   const location = useLocation();
@@ -47,6 +49,8 @@ function AppRoutes() {
         <Route path="/berita-smabi" element={<BeritaSmabi />} />
         <Route path="/berita-detail/:id" element={<BeritaDetail />} />
         <Route path="/form" element={<FormPPDB />} />
+        <Route path="/karya-tulis" element={<KaryaTulis />} />
+        <Route path="/karya-tulis/:id" element={<KaryaTulisDetail />} />
         <Route path="/kurikulum" element={<Kurikulum />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/alumni" element={<Alumni />} />

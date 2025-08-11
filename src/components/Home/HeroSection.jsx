@@ -107,6 +107,14 @@ const HeroSection = () => {
                     Berita SMABI
                   </a>
                 </li>
+                <li>
+                  <a
+                    href="/karya-tulis"
+                    className="block px-4 py-2 hover:bg-green-700 hover:text-white transition-colors rounded-md"
+                  >
+                    Karya Tulis SMABI
+                  </a>
+                </li>
               </ul>
             )}
           </li>
@@ -221,6 +229,11 @@ const HeroSection = () => {
                 <li>
                   <a href="/Berita-smabi" className="block py-1">
                     Berita SMABI
+                  </a>
+                </li>
+                <li>
+                  <a href="/karya-tulis" className="block py-1">
+                    Karya Tulis SMABI
                   </a>
                 </li>
               </ul>
