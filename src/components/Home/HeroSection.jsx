@@ -166,7 +166,7 @@ const HeroSection = () => {
             href="/form"
             className="bg-green-700 text-white px-4 py-2 rounded-md font-semibold hover:bg-green-800 transition"
           >
-            DAFTAR PPDB
+            DAFTAR SPMB
           </a>
         </div>
       </nav>
@@ -280,7 +280,7 @@ const HeroSection = () => {
               href="/form"
               className="mt-4 inline-block bg-green-700 text-white px-4 py-2 rounded-md font-semibold hover:bg-green-800 transition"
             >
-              DAFTAR PPDB
+              DAFTAR SPMB
             </a>
           </li>
         </ul>

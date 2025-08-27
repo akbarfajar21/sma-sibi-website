@@ -157,7 +157,7 @@ const Navbar = () => {
             to="/form"
             className="bg-green-700 text-white px-4 py-2 rounded-md font-semibold hover:bg-green-800 transition"
           >
-            DAFTAR PPDB
+            DAFTAR SPMB
           </Link>
         </div>
       </nav>
@@ -272,7 +272,7 @@ const Navbar = () => {
               to="/form"
               className="mt-4 inline-block bg-green-700 text-white px-4 py-2 rounded-md font-semibold hover:bg-green-800 transition"
             >
-              DAFTAR PPDB
+              DAFTAR SPMB
             </Link>
           </li>
         </ul>

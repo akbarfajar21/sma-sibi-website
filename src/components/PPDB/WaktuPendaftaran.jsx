@@ -17,7 +17,7 @@ const getTimeRemaining = (deadline) => {
 };
 
 const WaktuPendaftaran = () => {
-  const deadline = "2025-08-23T23:59:59";
+  const deadline = "2025-10-10T23:59:59";
   const [timeLeft, setTimeLeft] = useState(getTimeRemaining(deadline));
 
   useEffect(() => {
@@ -42,12 +42,10 @@ const WaktuPendaftaran = () => {
         Segera daftarkan putri anda sebelum waktu pendaftaran berakhir!
       </p>
 
-      {/* Info Tanggal */}
       <div className="bg-white shadow-md rounded-xl inline-block px-6 py-4 text-lg font-semibold text-gray-800 border mb-6">
-        1 Juni – 23 Agustus 2025
+        6 – 10 Oktober 2025
       </div>
 
-      {/* Countdown */}
       {timeLeft.total > 0 ? (
         <div className="flex justify-center gap-4 text-gray-800 text-sm md:text-base font-medium">
           <div className="bg-green-100 px-4 py-2 rounded-md">

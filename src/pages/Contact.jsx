@@ -67,7 +67,7 @@ const Contact = () => {
         <div className="lg:col-span-2 space-y-10">
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { icon: FaPhone, title: "Telepon", content: "+62 851-7154-6791" },
+              { icon: FaPhone, title: "Telepon", content: "+62 851-1716-4188" },
               {
                 icon: FaEnvelope,
                 title: "Email",
@@ -132,14 +132,17 @@ const Contact = () => {
         <div className="space-y-8">
           <div className="bg-white p-6 rounded-xl border shadow">
             <h3 className="font-semibold text-gray-800 mb-3">Lokasi Sekolah</h3>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18..."
-              width="100%"
-              height="260"
-              className="rounded-xl border-none"
-              loading="lazy"
-              title="Lokasi SMAIT"
-            ></iframe>
+            <div className="w-full h-96">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.4340608789794!2d107.06970727605837!3d-6.206335160797443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698958fdb1a681%3A0xb737581e2c64f1ee!2sSMA%20IT%20BAITUL%20ILMI!5e0!3m2!1sen!2sid!4v1756279224165!5m2!1sen!2sid"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
           </div>
 
           <div className="bg-white p-6 rounded-xl border shadow">
