@@ -17,8 +17,6 @@ const SyaratDanAlur = () => {
     "Nomor NISN siswa (1 lembar)",
     "Fotocopy Kartu Keluarga/KK (1 lembar)",
     "Fotocopy KTP kedua orang tua masing-masing (1 lembar)",
-    "Surat keterangan sehat dari dokter (1 lembar)",
-    "Surat kelakuan baik dari sekolah asal (1 lembar)",
     "Materai 10.000 (1 lembar)",
     "Map coklat untuk menyimpan berkas calon peserta didik",
   ];

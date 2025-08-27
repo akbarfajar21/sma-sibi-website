@@ -82,7 +82,7 @@ const BiayaPendidikan = () => {
             </h2>
 
             <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              SMAIT Baitul 'Ilmi - Sekolah Terbaik untuk Masa Depan Putri Anda
+              SMAIT Baitul 'Ilmi Sekolah Terbaik untuk Masa Depan Putra dan putri Anda
             </p>
 
             <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-emerald-600 rounded-full mx-auto"></div>
@@ -112,7 +112,7 @@ const BiayaPendidikan = () => {
                 Dapatkan Informasi Lengkap
               </h3>
               <p className="text-green-100 mb-6 max-w-md mx-auto">
-                Unduh brosur PPDB untuk informasi detail persyaratan dan jadwal
+                Unduh brosur SPMB untuk informasi detail persyaratan dan jadwal
                 pendaftaran
               </p>
 
@@ -122,7 +122,7 @@ const BiayaPendidikan = () => {
                 download
               >
                 <FaDownload className="text-lg" />
-                <span>Unduh Brosur PPDB 2025/2026</span>
+                <span>Unduh Brosur SPMB 2026/2027</span>
               </a>
             </div>
           </div>
