@@ -18,11 +18,13 @@ const HeroPPDB = () => {
 
         <div className="flex flex-wrap justify-center gap-4">
           <a
-            href="/formulir-ppdb.pdf"
+            href="/BROSUR-DAN-FLYER-SPMB-SMA-TP-2026-2027.pdf"
+            download="BROSUR DAN FLYER SPMB SMA TP. 2026-2027.pdf"
             className="inline-block bg-white text-green-700 border border-green-600 hover:bg-green-50 font-semibold py-2 px-5 rounded-lg transition shadow"
           >
-            Unduh Formulir
+            Unduh Brosur
           </a>
+
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLSdgAgHCPgcatsIlUES3mXKN4xZmJsQgGh7Q24tzu88pHV_XWw/viewform"
             target="_blank"

@@ -82,7 +82,8 @@ const BiayaPendidikan = () => {
             </h2>
 
             <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              SMAIT Baitul 'Ilmi Sekolah Terbaik untuk Masa Depan Putra dan putri Anda
+              SMAIT Baitul 'Ilmi Sekolah Terbaik untuk Masa Depan Putra dan
+              putri Anda
             </p>
 
             <div className="w-24 h-1 bg-gradient-to-r from-green-600 to-emerald-600 rounded-full mx-auto"></div>
@@ -117,9 +118,9 @@ const BiayaPendidikan = () => {
               </p>
 
               <a
-                href="/brosur-ppdb-2025-2026.pdf"
+                href="/BROSUR DAN FLYER SPMB SMA TP. 2026-2027.pdf"
                 className="inline-flex items-center gap-3 bg-white text-green-700 px-8 py-4 rounded-xl font-bold hover:bg-green-50 hover:text-green-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-                download
+                download="BROSUR DAN FLYER SPMB SMA TP. 2026-2027.pdf"
               >
                 <FaDownload className="text-lg" />
                 <span>Unduh Brosur SPMB 2026/2027</span>

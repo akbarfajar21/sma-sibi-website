@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import supabase from "../utils/SupaClient";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { Facebook, Twitter, Share2, Copy, MessageCircle } from "lucide-react"; // ikon modern
 
 const BeritaDetail = () => {
   const { id } = useParams();
@@ -15,8 +16,8 @@ const BeritaDetail = () => {
       const { data, error } = await supabase
         .from("berita")
         .select("judul, teks, image_url, created_at")
-        .eq("id", id) // berdasarkan id dari route
-        .limit(1); // hindari error 406
+        .eq("id", id)
+        .limit(1);
 
       if (error) {
         console.error("Gagal mengambil detail berita:", error.message);
@@ -29,6 +30,25 @@ const BeritaDetail = () => {
 
     fetchBeritaDetail();
   }, [id]);
+
+  const handleShare = async () => {
+    const shareData = {
+      title: berita?.judul || "Berita SMAIT Baitul 'Ilmi",
+      text: "Baca berita terbaru dari SMAIT Baitul 'Ilmi",
+      url: window.location.href,
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.error("Gagal share:", err);
+      }
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert("Link berita telah disalin ke clipboard!");
+    }
+  };
 
   if (loading) {
     return (
@@ -91,7 +111,29 @@ const BeritaDetail = () => {
         <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
           {berita.judul}
         </h1>
-        <div className="h-1 w-24 bg-green-600 rounded-full mb-8"></div>
+        <div className="h-1 w-24 bg-green-600 rounded-full mb-6"></div>
+
+        {/* Tombol Share */}
+        <div className="flex flex-wrap gap-3 mb-10">
+          <button
+            onClick={handleShare}
+            className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+          >
+            <Share2 size={18} /> Share
+          </button>
+
+          {/* Tombol share sosial */}
+          <a
+            href={`https://wa.me/?text=${encodeURIComponent(
+              berita.judul + " - " + window.location.href
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+          >
+            <MessageCircle size={18} /> WhatsApp
+          </a>
+        </div>
 
         {/* Isi Berita */}
         <div className="prose max-w-none text-gray-700 text-left space-y-4 [&>p]:indent-0">

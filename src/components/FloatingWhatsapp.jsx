@@ -4,7 +4,7 @@ import { FaWhatsapp } from "react-icons/fa";
 const FloatingWhatsapp = () => {
   const phoneNumber = "6285117164188";
   const message = encodeURIComponent(
-    "Assalamu’alaikum, saya ingin bertanya seputar PPDB SMAIT BAITUL 'ILMI."
+    "Assalamu’alaikum, saya ingin bertanya seputar SPMB SMAIT BAITUL 'ILMI."
   );
 
   const waLink = `https://wa.me/${phoneNumber}?text=${message}`;
@@ -12,7 +12,7 @@ const FloatingWhatsapp = () => {
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end group">
       <div className="opacity-0 group-hover:opacity-100 transition bg-gray-800 text-white text-xs px-3 py-1 rounded-md mb-2 shadow-lg">
-        Seputar PPDB?
+        Seputar SPMB?
       </div>
 
       <a
