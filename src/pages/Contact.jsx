@@ -71,7 +71,7 @@ const Contact = () => {
               {
                 icon: FaEnvelope,
                 title: "Email",
-                content: "info@smaitbaitulilmi.sch.id",
+                content: "smabi.tamara@gmail.com",
               },
               {
                 icon: FaMapMarkerAlt,

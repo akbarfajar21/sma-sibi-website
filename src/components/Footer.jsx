@@ -23,7 +23,7 @@ const Footer = () => {
           <div>
             <p className="font-semibold mb-1">Office:</p>
             <p>Email: smabi.tamara@gmail.com</p>
-            <p>Website: smaitbaitulilmi.com</p>
+            <p>Website: smaitbaitulilmi.sch.id</p>
           </div>
           <div className="flex gap-4 mt-2">
             <a
